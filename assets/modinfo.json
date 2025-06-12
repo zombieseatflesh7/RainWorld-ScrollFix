@@ -1,7 +1,7 @@
 {
 	"id": "ScrollFix",
 	"name": "Scroll Wheel Fix",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"target_game_version": "v1.10",
 	"authors": "Zombieseatflesh7",
 	"description": "Fixes an annoying glitch where scroll wheel inputs are polled incorrectly in menus, causing scroll inputs to be frequently ignored, especially at high framerates",

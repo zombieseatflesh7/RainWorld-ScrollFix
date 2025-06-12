@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace ScrollFix;
 
-[BepInPlugin("zombieseatflesh7.ScrollFix", "Scroll Fix", "1.0.0")]
+[BepInPlugin("zombieseatflesh7.ScrollFix", "Scroll Fix", "1.0.1")]
 sealed class Plugin : BaseUnityPlugin
 {
     public static new BepInEx.Logging.ManualLogSource Logger;
@@ -27,9 +27,13 @@ sealed class Plugin : BaseUnityPlugin
     private void MainLoopProcess_RawUpdate(On.MainLoopProcess.orig_RawUpdate orig, MainLoopProcess self, float dt)
     {
         // update scroll delta
-        if (self is Menu.Menu && self.manager.currentMainLoop == self && self.manager.menuesMouseMode)
-            (self as Menu.Menu).floatScrollWheel += Input.GetAxis("Mouse ScrollWheel");
-
+        if (self.manager.currentMainLoop == self && self.manager.menuesMouseMode)
+        {
+            if (self is Menu.Menu)
+                (self as Menu.Menu).floatScrollWheel += Input.GetAxis("Mouse ScrollWheel");
+            else if (self is RainWorldGame && (self as RainWorldGame).pauseMenu != null)
+                (self as RainWorldGame).pauseMenu.floatScrollWheel += Input.GetAxis("Mouse ScrollWheel");
+        }
         orig(self, dt);
     }
 
